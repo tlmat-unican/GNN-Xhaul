@@ -1,0 +1,5 @@
+#define GREEN "\x1b[32m"
+#define YELLOW "\x1b[33m"
+#define MAGENTA "\x1b[35m"
+#define BG_ORANGE "\x1B[48;2;255;128;0m"
+#define RESET "\x1b[0m"

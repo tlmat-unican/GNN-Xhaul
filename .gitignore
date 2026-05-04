@@ -1,0 +1,10 @@
+*.tar.gz
+*data/
+*ns3-datasets/
+datasets/
+build/
+*.log
+*zip
+*.so
+__pycache__/
+.ipynb_checkpoints/
