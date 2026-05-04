@@ -1,6 +1,5 @@
 # GNN-based e2e performance prediction in RAN 
 
-
 This repository contains an implementation of a Graph Neural Network (GNN)-based approach for end-to-end (E2E) performance prediction in Radio Access Networks (RAN), with a particular focus on x-haul scenarios.
 
 The proposed architecture models the network as a graph, where nodes and links represent network elements and their relationships. The GNN is trained to learn complex dependencies and predict E2E delay.
@@ -26,16 +25,92 @@ It includes the following main components:
 **Repository structure**
 
 - `RouteNet-Fermi/` – Core GNN model implementation  
-- `generate-datasetsHQoS/` – Dataset generation scripts  
-- `generate-datasetsHQoS_multiproc/` – Parallel dataset generation  
+- `generate-datasetsHQoS_multiproc/` – Dataset generation  
 - `simulation-analysis.ipynb` – Results analysis notebook  
 - `requirements.txt` – Python dependencies  
 
 
 
 
-**Notes**
+## Reproducilability 
+To ensure full reproducibility of the results presented in this work, the repository provides an end-to-end pipeline covering dataset generation, preprocessing, model training, and evaluation.
+<### 0. Requirements
+The proposed framework has been validated using Python 3.7. In order to install dependencies:
 
+```bash
+pip install -r requirements.txt
+```
+
+### 1. Dataset Generation
+
+Network datasets are generated using ns-3 simulation scenarios. So, the scrips regarding to the automatation od the dataset generation are in 
+
+Scripts are allocated in folder `generate-datasetsHQoS_multiproc/`
+
+```bash
+python datasets_gen_scs_bw_01.py --ns3-path ../ns-allinone-3.39/ns-3.39 --sim-time 1 --max-workers 3
+```
+
+Outputs are TX/RX traces. 
+
+### 2. Parsing dataset
+
+Raw simulation outputs are converted into graph-based inputs compatible with the  $\text{RouteNet}^{\star}$ architecture.
+
+- First, in order to split the dataset into three sets (trainining/validation/test) use the following script [`movedatasetszip.py`](generate-datasetsHQoS_multiproc/movedatasetszip.py)
+The script includes configurable parameters that allow customizing the dataset splitting process. In particular, the base dataset path, output directories, and split ratios can be modified according to the user’s requirements.
+
+- Second, adapt it to the $\text{RouteNet}^{\star}$ architecture' inputs, for that porpuse use the script [`get_datatsets_routenet_format_from_zip_nproc.py`](generate-datasetsHQoS_multiproc/get_datatsets_routenet_format_from_zip_nproc.py). This script is configurable through command-line arguments, allowing adaptation to different dataset locations.
+
+
+
+### 3. Model Training 
+
+
+
+
+### 4. Evaluation Setup 
+
+
+### 5. Implementation details 
+
+
+
+
+
+
+
+----
+----
+
+
+
+
+## EXPERIMENTAL SETUP
+
+### A. Computing Environment
+
+Experiments were conducted in a virtual machine:
+
+- **OS:** Ubuntu 22.04.3 LTS  
+- **Kernel:** 5.15.0-88-generic  
+- **Virtualization:** VMware (full virtualization)
+
+### B. Hardware Configuration
+
+The system consists of an Intel Xeon-based virtual machine with 8 virtual CPUs:
+
+- **CPU:** Intel(R) Xeon(R) Silver 4214R @ 2.40GHz  
+- **Architecture:** x86_64  
+- **Cores:** 8 vCPUs  
+$\rightarrow$ All experiments were executed on CPU-only infrastructure, without GPU acceleration.
+
+---
+
+
+
+
+# Notes
 Large simulation environments (e.g., ns-3) and virtual environments are excluded via .gitignore.
 Make sure to install dependencies in your own environment.
 
@@ -43,4 +118,4 @@ Make sure to install dependencies in your own environment.
 
 ![Status](https://img.shields.io/badge/status-work%20in%20progress-orange)
 > **Work in progress**. This README is under construction.
-> For questions or issues, feel free to reach out: [fatima.khan@unican.es](mailto:fatima.khan@unican.es)
+>  For questions or issues, feel free to reach out: [fatima.khan@unican.es](mailto:fatima.khan@unican.es)

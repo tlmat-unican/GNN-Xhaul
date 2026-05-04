@@ -17,24 +17,19 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--ns3-path', type=str, default='../ns-allinone-3.39/ns-3.39')
     parser.add_argument('--sim-time', type=float, default=1)
+    parser.add_argument('--max-workers', type=int, default=3)
     args = parser.parse_args()
 
-    # Configuración de slots base (Numerología flexible)
+
   
     
     graphfileslocation = "./topologies/"
+    graphbase = ["SPWRRGraph_50_50_ALL", "SPGraph_ALL", "SPWRRGraph_60_40_ALL", "SPWRRGraph_40_60_ALL", "SPWRRGraph_70_30_ALL", "SPWRRGraph_30_70_ALL", "SPWRRGraph_90_10_ALL", "SPWRRGraph_10_90_ALL"]
+    gen = AutomatedTopDatasetGenerator(args.ns3_path, "./datasets/oran-hqos_merged/")
 
-    
-    graphbase = ["SPWRRGraph_50_50_ALL", "SPGraph_ALL", "SPWRRGraph_60_40_ALL", "SPWRRGraph_40_60_ALL"]
-    gen = AutomatedTopDatasetGenerator(args.ns3_path, "./datasets/oran-hqos_merged")
-
-
-    # all_scs = [15, 30, 60]
-    # all_bw = [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100]
-    # utilization_levels = np.linspace(0.1, 0.95, 40)
     
     all_scs = [30]
-    all_bw = [40]
+    all_bw = [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100]
     utilization_levels = np.linspace(0.1, 0.95, 40)
     valid_combinations = []
     
@@ -56,10 +51,10 @@ if __name__ == "__main__":
     random.seed(42) 
     random.shuffle(valid_combinations)
 
-    # --- 4. Partición del Dataset (70/20/10) ---
+    
     total = len(valid_combinations)
-    idx_train = int(total * 0.7)
-    idx_val = int(total * 0.9)
+    idx_train = int(total * 1)
+    idx_val = int(total * 1)  
 
     print(f"--- Generación de Dataset O-RAN ---")
     print(f"Combinaciones compatibles encontradas: {total}")
@@ -68,7 +63,7 @@ if __name__ == "__main__":
 
   
     for i, config in enumerate(valid_combinations):
-        # Determinar carpeta destino
+      
         if i < idx_train:
             subset = "train"
         elif i < idx_val:
@@ -88,8 +83,9 @@ if __name__ == "__main__":
         print(f"\n[BATCH {i+1}/{total}] [{subset.upper()}] SCS: {scs}kHz | BW: {bw}MHz | Util: {util:.2f}")
 
         # Ejecución en ns-3
-        gen.generate_batch(
+        gen.generate_batch_pararell(
             batch_id=i,
+            max_workers=args.max_workers,
             sim_time=args.sim_time, 
             rrc_cfg=rrc_cfg_base, 
             scs=scs, 

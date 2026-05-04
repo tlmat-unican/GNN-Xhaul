@@ -11,9 +11,8 @@ from tqdm import tqdm
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import os
 
-# --- CONFIGURACIÓN DE RENDIMIENTO ---
-# Cambia este número para limitar manualmente (ej. MAX_PROCESSES = 4)
-# O usa os.cpu_count() // 2 para usar la mitad de tu CPU
+
+# Use os.cpu_count() // 2 to use half of the available CPU cores
 MAX_PROCESSES = max(1, os.cpu_count() // 2) 
 
 NOSIMRESULTS = "0,0,0,-1,-1,-1,-1,-1,-1,-1,-1"
@@ -160,7 +159,7 @@ def build_lines(traffic_json, per_flow_metrics, sim_time):
     return f"{max_lambda}|{';'.join(cells_traffic)}", f"{g_packets},{g_losses},{g_delay}|{';'.join(cells_results)}", ";".join(cells_flow_results)
 
 # =========================
-# SINGLE WORKER (Paralelizable)
+# SINGLE WORKER 
 # =========================
 def process_single_tar(tar_path):
     try:
@@ -228,7 +227,7 @@ def build_dataset_from_tar(results_root, out_root, batch_name="batch_0000"):
             original_folders.append(res["base_name"])
             last_sim_time = res["sim_time"]
 
-            # Gestión de archivos (Hash para evitar duplicados en disco)
+            
             g_hash = hashlib.md5(res["g_data"]).hexdigest()
             if g_hash not in g_hash_map:
                 g_name = f"graph_{g_count}.gml"
@@ -246,7 +245,7 @@ def build_dataset_from_tar(results_root, out_root, batch_name="batch_0000"):
                 "g_name": g_hash_map[g_hash], "r_name": r_hash_map[r_hash]
             })
 
-    # Empaquetado final
+
     tmp = out_root / batch_name
     write_batch_dir(tmp, batch_lines, original_folders, last_sim_time)
     
