@@ -8,10 +8,16 @@ The proposed architecture models the network as a graph, where nodes and links r
 
 The overall system architecture is illustrated in the figure below:
 
-<p align="center" style="background-color:white; padding:10px;">
+<!-- <p align="center" style="background-color:white; padding:10px;">
   <img src="architecture.png" width="600"/>
-</p>
+</p> -->
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="architecture.png">
+    <img src="architecture.png" width="600">
+  </picture>
+</p>
 
 It includes the following main components:
 
