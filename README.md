@@ -65,17 +65,20 @@ The script includes configurable parameters that allow customizing the dataset s
 
 
 ### 3. Model Training 
-
-
-
+To train the model, it is necessary to execute the data generation script located in the `/RouteNet-Fermi/HQoS/` directory, specifically [`data_generatorHQoS.py`](./RouteNet-Fermi/HQoS/train_with_MAPE.py).
+The training script includes several configurable hyperparameters and paths that can be adjusted according to the current setup.
 
 ### 4. Evaluation Setup 
+To evaluate the performance of the GNN model, a Jupyter notebook is provided at [`performance.ipynb`](./RouteNet-Fermi/HQoS/performance.ipynb). 
+This notebook contains the code used for the evaluation and analysis of the results presented in the paper, including the main performance metrics and visualization of the model outputs.
 
 
-### 5. Implementation details 
 
+### 5. Artifacts
 
+- [`final_set_dataset`](./RouteNet-Fermi/final_set_dataset/) includes the processed dataset used for training the proposed GNN model.
 
+- [`ckpts_final_1_bacth_logs_EarlyStopping8`](./RouteNet-Fermi/HQoS/ckpts_final_1_bacth_logs_EarlyStopping8/) contains the trained model checkpoints used for inference and performance evaluation.
 
 
 
