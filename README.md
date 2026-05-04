@@ -12,12 +12,9 @@ The overall system architecture is illustrated in the figure below:
   <img src="architecture.png" width="600"/>
 </p> -->
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="architecture.png">
-    <img src="architecture.png" width="600">
-  </picture>
-</p>
+<div align="center">
+  <img src="architecture.png" width="600" style="border: 1px solid #ccc;">
+</div>
 
 It includes the following main components:
 
