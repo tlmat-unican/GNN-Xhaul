@@ -8,12 +8,8 @@ The proposed architecture models the network as a graph, where nodes and links r
 
 The overall system architecture is illustrated in the figure below:
 
-<!-- <p align="center" style="background-color:white; padding:10px;">
-  <img src="architecture.png" width="600"/>
-</p> -->
-
 <div align="center">
-  <img src="architecture.png" width="600" style="border: 1px solid #ccc;">
+  <img src="architecture_git.png" width="600" style="border: 1px solid #ccc;">
 </div>
 
 It includes the following main components:
@@ -37,14 +33,15 @@ It includes the following main components:
 
 ## Reproducilability 
 To ensure full reproducibility of the results presented in this work, the repository provides an end-to-end pipeline covering dataset generation, preprocessing, model training, and evaluation.
-<### 0. Requirements
+
+### 1. Requirements
 The proposed framework has been validated using Python 3.7. In order to install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 1. Dataset Generation
+### 2. Dataset Generation
 
 Network datasets are generated using ns-3 simulation scenarios. So, the scrips regarding to the automatation od the dataset generation are in 
 
@@ -56,7 +53,7 @@ python datasets_gen_scs_bw_01.py --ns3-path ../ns-allinone-3.39/ns-3.39 --sim-ti
 
 Outputs are TX/RX traces. 
 
-### 2. Parsing dataset
+### 3. Parsing dataset
 
 Raw simulation outputs are converted into graph-based inputs compatible with the  $\text{RouteNet}^{\star}$ architecture.
 
@@ -67,17 +64,17 @@ The script includes configurable parameters that allow customizing the dataset s
 
 
 
-### 3. Model Training 
+### 4. Model Training 
 To train the model, it is necessary to execute the data generation script located in the `/RouteNet-Fermi/HQoS/` directory, specifically [`data_generatorHQoS.py`](./RouteNet-Fermi/HQoS/train_with_MAPE.py).
 The training script includes several configurable hyperparameters and paths that can be adjusted according to the current setup.
 
-### 4. Evaluation Setup 
+### 5. Evaluation Setup 
 To evaluate the performance of the GNN model, a Jupyter notebook is provided at [`performance.ipynb`](./RouteNet-Fermi/HQoS/performance.ipynb). 
 This notebook contains the code used for the evaluation and analysis of the results presented in the paper, including the main performance metrics and visualization of the model outputs.
 
 
 
-### 5. Artifacts
+### 6. Artifacts
 
 - [`final_set_dataset`](./RouteNet-Fermi/final_set_dataset/) includes the processed dataset used for training the proposed GNN model.
 
@@ -86,13 +83,10 @@ This notebook contains the code used for the evaluation and analysis of the resu
 
 
 
-----
-----
 
 
 
-
-## EXPERIMENTAL SETUP
+## Setup Features
 
 ### A. Computing Environment
 
